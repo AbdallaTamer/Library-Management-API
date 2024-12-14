@@ -1,0 +1,155 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Library Management API"
+  description: "A RESTful API for managing books in a library."
+host: "localhost:5000"
+basePath: "/"
+schemes:
+  - "http"
+paths:
+  /books:
+    post:
+      summary: "Add a new book"
+      description: "Add a book to the library with the specified details."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Details of the book to add."
+          required: true
+          schema:
+            type: "object"
+            required:
+              - title
+              - author
+              - published_year
+              - isbn
+            properties:
+              title:
+                type: "string"
+              author:
+                type: "string"
+              published_year:
+                type: "integer"
+              isbn:
+                type: "string"
+              genre:
+                type: "string"
+      responses:
+        201:
+          description: "Book added successfully."
+        400:
+          description: "Invalid input data."
+    get:
+      summary: "List all books"
+      description: "Retrieve a list of all books in the library."
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "List of books retrieved successfully."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Book"
+
+  /books/search:
+    get:
+      summary: "Search for books"
+      description: "Search for books in the library by author, published year, or genre."
+      produces:
+        - "application/json"
+      parameters:
+        - name: "author"
+          in: "query"
+          description: "Filter by author."
+          required: false
+          type: "string"
+        - name: "published_year"
+          in: "query"
+          description: "Filter by published year."
+          required: false
+          type: "integer"
+        - name: "genre"
+          in: "query"
+          description: "Filter by genre."
+          required: false
+          type: "string"
+      responses:
+        200:
+          description: "Filtered list of books."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Book"
+
+  /books/{isbn}:
+    delete:
+      summary: "Delete a book"
+      description: "Remove a book from the library using its ISBN."
+      produces:
+        - "application/json"
+      parameters:
+        - name: "isbn"
+          in: "path"
+          description: "ISBN of the book to delete."
+          required: true
+          type: "string"
+      responses:
+        204:
+          description: "Book deleted successfully."
+        404:
+          description: "Book not found."
+
+    put:
+      summary: "Update a book"
+      description: "Update the details of a specific book using its ISBN."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "isbn"
+          in: "path"
+          description: "ISBN of the book to update."
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Updated details of the book."
+          required: true
+          schema:
+            type: "object"
+            properties:
+              title:
+                type: "string"
+              author:
+                type: "string"
+              published_year:
+                type: "integer"
+              genre:
+                type: "string"
+      responses:
+        200:
+          description: "Book updated successfully."
+        404:
+          description: "Book not found."
+
+definitions:
+  Book:
+    type: "object"
+    properties:
+      title:
+        type: "string"
+      author:
+        type: "string"
+      published_year:
+        type: "integer"
+      isbn:
+        type: "string"
+      genre:
+        type: "string"

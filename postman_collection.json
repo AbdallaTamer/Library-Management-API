@@ -1,0 +1,107 @@
+{
+    "info": {
+      "name": "Library Management API",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Add a new book",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "url": {
+            "raw": "http://localhost:5000/books",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "5000",
+            "path": ["books"]
+          },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"title\": \"The Great Gatsby\",\n  \"author\": \"F. Scott Fitzgerald\",\n  \"published_year\": 1925,\n  \"isbn\": \"9780743273565\",\n  \"genre\": \"Classic\"\n}"
+          }
+        }
+      },
+      {
+        "name": "List all books",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:5000/books",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "5000",
+            "path": ["books"]
+          }
+        }
+      },
+      {
+        "name": "Search for books",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:5000/books?author=F. Scott Fitzgerald&genre=Classic",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "5000",
+            "path": ["books"],
+            "query": [
+              {
+                "key": "author",
+                "value": "F. Scott Fitzgerald"
+              },
+              {
+                "key": "genre",
+                "value": "Classic"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "Delete a book by ISBN",
+        "request": {
+          "method": "DELETE",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:5000/books/9780743273565",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "5000",
+            "path": ["books", "9780743273565"]
+          }
+        }
+      },
+      {
+        "name": "Update book details by ISBN",
+        "request": {
+          "method": "PUT",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "url": {
+            "raw": "http://localhost:5000/books/9780743273565",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "5000",
+            "path": ["books", "9780743273565"]
+          },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"genre\": \"Fiction\",\n  \"published_year\": 1926\n}"
+          }
+        }
+      }
+    ]
+  }
+  
